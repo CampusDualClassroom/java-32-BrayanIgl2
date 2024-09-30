@@ -6,11 +6,13 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Exercise32 {
 
     public static void main(String[] args) {
-
+        System.out.println("Ejercicio 32 - Escritura de ficheros");
+        printToFile(generateStringToSave(null));
     }
 
     public static String generateStringToSave(String string) {
@@ -23,12 +25,32 @@ public class Exercise32 {
         return string;
     }
 
+    //Se genera la cadena de texto y se devuelve
     private static String generateUserInputToSave() {
+
+        //Contador para tener en cuenta el numero de Enters introducidos
+        int cont = 0;
         StringBuilder sb = new StringBuilder();
         System.out.println("Escribe debajo el texto que quieras. Pulsa \"ENTER\" 2 veces seguidas para finalizar:");
         String string;
-        while (!(string = Utils.string()).isEmpty()) {
-            sb.append(string).append(System.lineSeparator());
+
+
+        //Se comprueba que no se pulse enter 2 veces seguidas, y se va añadiendo en un Stringbuilder el texto a escribir
+        while (cont < 2) {
+            string = new Scanner(System.in).nextLine();
+
+            //En caso de que se pulse enter el contador aumenta
+            if (string.isEmpty()) {
+                cont++;
+
+            }
+            //En caso contrario el contador se resetea a 0 y se añade la linea de texto al String
+            else {
+                cont = 0;
+                sb.append(string).append(System.lineSeparator());
+
+            }
+
         }
         return sb.toString();
     }
